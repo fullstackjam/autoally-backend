@@ -22,8 +22,8 @@ cd AutoAlly-IMAdapter
 2. Set up a virtual environment and activate it:
 
 ```bash
-python -m venv imadapter_env
-source imadapter_env/bin/activate  # On Windows, use: imadapter_env\Scripts\activate
+python -m venv venv
+source venv/bin/activate  # On Windows, use: venv\Scripts\activate
 ```
 3. Install the required dependencies:
 
