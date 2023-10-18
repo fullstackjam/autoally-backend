@@ -28,6 +28,7 @@ source imadapter_env/bin/activate  # On Windows, use: imadapter_env\Scripts\acti
 3. Install the required dependencies:
 
 ```bash
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 4. Run the FastAPI application:
