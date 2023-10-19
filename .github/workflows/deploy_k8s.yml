@@ -45,4 +45,4 @@ jobs:
 
     - name: Deploy with Helm
       run: |
-        helm upgrade --install imadapter-release helm/autoally-imadapter --atomic --kubeconfig $GITHUB_WORKSPACE/kubeconfig
+        helm upgrade --install imadapter-release helm/autoally-imadapter --set slackSigningSecret=${{ secrets.SLACK_SIGNING_SECRET }} --set slackBotToken=${{ secrets.SLACK_BOT_TOKEN }} --atomic --kubeconfig $GITHUB_WORKSPACE/kubeconfig

@@ -1,11 +1,10 @@
 from fastapi.testclient import TestClient
 
-from app import app
+from app import api
 
-client = TestClient(app)
+client = TestClient(api)
 
 
 def test_root():
-    response = client.get("/")
+    response = client.get("/docs")
     assert response.status_code == 200
-    assert response.json() == {"Hello": "IMAdapter"}

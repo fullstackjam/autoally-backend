@@ -34,7 +34,7 @@ pip install -r requirements.txt
 4. Run the FastAPI application:
 
 ```bash
-uvicorn app:app --reload
+uvicorn app:api --reload
 ```
 Visit http://127.0.0.1:8000/ in your browser to see the application in action.
 
