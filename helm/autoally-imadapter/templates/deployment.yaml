@@ -16,21 +16,12 @@ spec:
         - name: autoally-imadapter
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: slack-secret
           env:
           - name: ROOT_PATH
             value: "/imadapter"
           ports:
             - name: http
               containerPort: 8000
-          livenessProbe:  # Liveness Probe 配置
-            httpGet:
-              path: /docs  # 健康检查的路径 (根据您的应用实际的健康检查端点修改)
-              port: http
-            initialDelaySeconds: 30  # 启动后等待多少秒才执行第一次探测
-            periodSeconds: 10  # 每隔多少秒执行一次探测
-          readinessProbe:  # Readiness Probe 配置
-            httpGet:
-              path: /docs  # 健康检查的路径 (根据您的应用实际的健康检查端点修改)
-              port: http
-            initialDelaySeconds: 5  # 启动后等待多少秒才执行第一次探测
-            periodSeconds: 5  # 每隔多少秒执行一次探测
