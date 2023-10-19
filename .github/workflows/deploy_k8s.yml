@@ -6,7 +6,29 @@ on:
       - master # Adjust this to your main branch if it's not "master"
 
 jobs:
-  deploy:
+  build_and_push_docker_image:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: fullstackjam/autoally-imadapter:latest
+
+  deploy_k8s:
+    needs: build_and_push_docker_image
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code

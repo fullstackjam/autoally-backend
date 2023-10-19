@@ -14,8 +14,11 @@ spec:
     spec:
       containers:
         - name: autoally-imadapter
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: ROOT_PATH
+            value: "/imadapter"
           ports:
             - name: http
               containerPort: 8000
@@ -31,5 +34,3 @@ spec:
               port: http
             initialDelaySeconds: 5  # 启动后等待多少秒才执行第一次探测
             periodSeconds: 5  # 每隔多少秒执行一次探测
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}

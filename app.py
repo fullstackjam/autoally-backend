@@ -1,6 +1,10 @@
+import os
+
 from fastapi import FastAPI
 
-app = FastAPI(openapi_prefix="/imadapter")
+ROOT_PATH = os.environ.get("ROOT_PATH", "")
+
+app = FastAPI(root_path=ROOT_PATH, openapi_url=f"{ROOT_PATH}/openapi.json")
 
 
 @app.get("/")
