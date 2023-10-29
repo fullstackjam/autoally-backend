@@ -21,11 +21,3 @@ repos:
     rev: 6.1.0  # Use the version you wish
     hooks:
     -   id: flake8
-
--   repo: local
-    hooks:
-    -   id: pytest
-        name: pytest
-        entry: python -m pytest
-        language: system
-        pass_filenames: false

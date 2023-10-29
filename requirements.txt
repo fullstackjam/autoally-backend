@@ -1,3 +1,5 @@
 fastapi[all]
 uvicorn
 slack_bolt
+transformers
+torch
