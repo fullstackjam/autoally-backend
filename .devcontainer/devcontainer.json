@@ -8,7 +8,7 @@
   "updateContentCommand": "pip install -r requirements-dev.txt",
   "postCreateCommand": "pre-commit install",
   "postAttachCommand": {
-    "server": "uvicorn app:api --host 0.0.0.0 --port 8000 --reload"
+    "server": "dotenv run -- uvicorn app:api --host 0.0.0.0 --port 8000 --reload"
   },
   "portsAttributes": {
     "8000": {
