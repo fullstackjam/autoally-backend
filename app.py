@@ -1,11 +1,12 @@
 import os
 
+# from predict_intent import get_intent_name
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from slack_bolt import App
 from slack_bolt.adapter.fastapi import SlackRequestHandler
 
-from predict_intent import get_intent_name
-
+load_dotenv()  # take environment variables from .env.
 app = App()
 app_handler = SlackRequestHandler(app)
 
@@ -17,7 +18,8 @@ replied_threads = set()
 def handle_app_mentions(body, say, logger):
     logger.info(body)
     message_text = body["event"]["text"]
-    return_message = get_intent_name(message_text)
+    # return_message = get_intent_name(message_text)
+    return_message = message_text
     logger.info(f"return message is {return_message}")
     thread_ts = body["event"].get("thread_ts") or body["event"].get("ts")
 
@@ -29,7 +31,8 @@ def handle_app_mentions(body, say, logger):
 @app.event("message")
 def handle_message(body, say, logger):
     message_text = body["event"]["text"]
-    return_message = get_intent_name(message_text)
+    return_message = message_text
+    # return_message = get_intent_name(message_text)
     logger.info(f"return message is {return_message}")
     thread_ts = body["event"].get("thread_ts")
 
