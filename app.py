@@ -58,3 +58,8 @@ api = FastAPI(root_path=ROOT_PATH, openapi_url=f"{ROOT_PATH}/openapi.json")
 @api.post("/slack/events")
 async def endpoint(req: Request):
     return await app_handler.handle(req)
+
+
+@api.get("/")
+async def get():
+    return {"application": "fastapi"}
