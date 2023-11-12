@@ -13,3 +13,6 @@ ingress:
   enabled: false
 
 resources: {}
+
+slackSigningSecret: f0b96064610645f398236a186e28a0f7
+slackBotToken: xoxb-4877290900210-6060854467301-hTc9zjBvNc6aCvpIx5x98slx
