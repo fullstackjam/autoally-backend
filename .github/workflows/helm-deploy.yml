@@ -21,7 +21,7 @@ jobs:
         run: helm registry login harbor.fullstackjam.com --username ${{ secrets.HARBOR_USERNAME }} --password ${{ secrets.HARBOR_PASSWORD }}
 
       - name: Push Chart to Harbor
-        run: helm push autoally-imadpter.tgz oci://harbor.fullstackjam.com/autoally-imadapter
+        run: helm push autoally-imadapter-0.1.0.tgz oci://harbor.fullstackjam.com/fullstackjam
 
       - name: Logout of Harbor
         run: helm registry logout harbor.fullstackjam.com
