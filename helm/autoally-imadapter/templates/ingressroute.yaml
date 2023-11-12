@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: autoally-imadapter
+  namespace: autoally
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`autoally-imadapter.fullstackjam.com`)
+    kind: Rule
+    services:
+    - name: autoally-imadapter
+      port: 8000
+  tls:
+    certResolver: myresolver

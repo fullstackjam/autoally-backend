@@ -17,8 +17,8 @@ spec:
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
-            - secretRef:
-                name: slack-secret
+            - configMapRef:
+                name: slack-config
           env:
           - name: ROOT_PATH
             value: "/imadapter"
