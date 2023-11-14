@@ -26,4 +26,4 @@ spec:
             - name: http
               containerPort: 8000
       imagePullSecrets:
-      - name: my-registry-secret
+      - name: my-harbor-secret
