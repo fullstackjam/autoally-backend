@@ -14,7 +14,20 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v1
         with:
-            version: '3.13.1'
+          version: '3.13.1'
+
+      - name: Calculate New Version
+        id: newversion
+        run: |
+          INCREMENTED_NUMBER=$(git rev-list --count HEAD)
+          COMMIT_HASH=$(git rev-parse --short=8 HEAD)
+          NEW_VERSION="${INCREMENTED_NUMBER}-${COMMIT_HASH}"
+          echo "New version is $NEW_VERSION"
+          echo "::set-output name=version::$NEW_VERSION"
+
+      - name: Update Chart Version
+        run: |
+          sed -i 's/^version:.*/version: "${{ steps.newversion.outputs.version }}"/' helm/autoally-imadapter/Chart.yaml
 
       - name: Package Helm Chart
         run: helm package helm/autoally-imadapter
@@ -22,10 +35,10 @@ jobs:
       - name: Login to Harbor
         run: helm registry login harbor.fullstackjam.com --username ${{ secrets.HARBOR_USERNAME }} --password ${{ secrets.HARBOR_PASSWORD }}
         env:
-            HELM_EXPERIMENTAL_OCI: 1
+          HELM_EXPERIMENTAL_OCI: 1
 
       - name: Push Chart to Harbor
-        run: helm push autoally-imadapter-0.1.0.tgz oci://harbor.fullstackjam.com/fullstackjam
+        run: helm push autoally-imadapter-${{ steps.newversion.outputs.version }}.tgz oci://harbor.fullstackjam.com/fullstackjam
 
       - name: Logout of Harbor
         run: helm registry logout harbor.fullstackjam.com
