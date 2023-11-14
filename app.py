@@ -1,5 +1,3 @@
-import os
-
 # from predict_intent import get_intent_name
 from dotenv import load_dotenv
 from fastapi import FastAPI, Request
@@ -50,9 +48,7 @@ def handle_app_home_opened_events(body, logger):
     logger.info(body)
 
 
-ROOT_PATH = os.environ.get("ROOT_PATH", "")
-
-api = FastAPI(root_path=ROOT_PATH, openapi_url=f"{ROOT_PATH}/openapi.json")
+api = FastAPI()
 
 
 @api.post("/slack/events")

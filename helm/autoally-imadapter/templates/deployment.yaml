@@ -19,9 +19,6 @@ spec:
           envFrom:
             - secretRef:
                 name: slack-secret
-          env:
-            - name: ROOT_PATH
-              value: "/imadapter"
           ports:
             - name: http
               containerPort: 8000
