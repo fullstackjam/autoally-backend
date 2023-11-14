@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: fullstackjam/autoally-imadapter
   pullPolicy: Always
-  tag: latest
+  tag: $NEW_VERSION
 
 service:
   type: ClusterIP

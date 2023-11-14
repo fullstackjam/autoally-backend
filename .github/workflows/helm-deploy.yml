@@ -31,6 +31,10 @@ jobs:
         run: |
           sed -i 's/^version:.*/version: "${{ steps.newversion.outputs.version }}"/' helm/autoally-imadapter/Chart.yaml
 
+      - name: Update Image Tag in values.yaml
+        run: |
+          sed -i "s/tag: .*/tag: \"$NEW_VERSION\"/" helm/autoally-imadapter/values.yaml
+
       - name: Package Helm Chart
         run: helm package helm/autoally-imadapter
 

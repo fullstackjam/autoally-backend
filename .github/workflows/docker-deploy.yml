@@ -11,6 +11,16 @@ jobs:
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Calculate New Version
+        run: |
+          INCREMENTED_NUMBER=$(git rev-list --count HEAD)
+          COMMIT_HASH=$(git rev-parse --short=8 HEAD)
+          NEW_VERSION="${INCREMENTED_NUMBER}-${COMMIT_HASH}"
+          echo "New version is $NEW_VERSION"
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -28,7 +38,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: harbor.fullstackjam.com/fullstackjam/autoally-imadapter:lastest
+          tags: harbor.fullstackjam.com/fullstackjam/autoally-imadapter:${{ env.NEW_VERSION }}
 
       - name: Logout of Docker Registry
         run: docker logout harbor.fullstackjam.com
