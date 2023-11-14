@@ -23,16 +23,16 @@ jobs:
         run: |
           INCREMENTED_NUMBER=$(git rev-list --count HEAD)
           COMMIT_HASH=$(git rev-parse --short=8 HEAD)
+          echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_ENV
           NEW_VERSION="${INCREMENTED_NUMBER}-${COMMIT_HASH}"
-          echo "New version is $NEW_VERSION"
-          echo "::set-output name=version::$NEW_VERSION"
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Update Image Tag in values.yaml
         run: |
-          sed -i "s/tag: .*/tag: \"$COMMIT_HASH\"/" helm/autoally-imadapter/values.yaml
+          sed -i "s/tag: .*/tag: \"${{ env.NEW_VERSION }}\"/" helm/autoally-imadapter/values.yaml
 
       - name: Package Helm Chart
-        run: helm package helm/autoally-imadapter --version ${{ steps.newversion.outputs.version }}
+        run: helm package helm/autoally-imadapter --version ${{ env.COMMIT_HASH }}
 
       - name: Login to Harbor
         run: helm registry login harbor.fullstackjam.com --username ${{ secrets.HARBOR_USERNAME }} --password ${{ secrets.HARBOR_PASSWORD }}
@@ -40,7 +40,7 @@ jobs:
           HELM_EXPERIMENTAL_OCI: 1
 
       - name: Push Chart to Harbor
-        run: helm push autoally-imadapter-${{ steps.newversion.outputs.version }}.tgz oci://harbor.fullstackjam.com/fullstackjam/autoally-imadapter
+        run: helm push autoally-imadapter-${{ env.COMMIT_HASH }}.tgz oci://harbor.fullstackjam.com/fullstackjam
 
       - name: Logout of Harbor
         run: helm registry logout harbor.fullstackjam.com

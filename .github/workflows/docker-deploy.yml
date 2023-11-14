@@ -16,9 +16,9 @@ jobs:
 
       - name: Calculate New Version
         run: |
+          INCREMENTED_NUMBER=$(git rev-list --count HEAD)
           COMMIT_HASH=$(git rev-parse --short=8 HEAD)
-          NEW_VERSION="${COMMIT_HASH}"
-          echo "New version is $NEW_VERSION"
+          NEW_VERSION="${INCREMENTED_NUMBER}-${COMMIT_HASH}"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
