@@ -22,7 +22,7 @@ jobs:
         id: newversion
         run: |
           INCREMENTED_NUMBER=$(git rev-list --count HEAD)
-          COMMIT_HASH=$(git rev-parse --short=8 HEAD)
+          COMMIT_HASH=$(git rev-parse --short=7 HEAD)
           echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_ENV
           NEW_VERSION="${INCREMENTED_NUMBER}-${COMMIT_HASH}"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
@@ -32,7 +32,7 @@ jobs:
           sed -i "s/tag: .*/tag: \"${{ env.NEW_VERSION }}\"/" helm/autoally-imadapter/values.yaml
 
       - name: Package Helm Chart
-        run: helm package helm/autoally-imadapter --version ${{ env.COMMIT_HASH }}
+        run: helm package helm/autoally-imadapter --version 1-${{ env.COMMIT_HASH }}
 
       - name: Login to Harbor
         run: helm registry login harbor.fullstackjam.com --username ${{ secrets.HARBOR_USERNAME }} --password ${{ secrets.HARBOR_PASSWORD }}
@@ -40,7 +40,7 @@ jobs:
           HELM_EXPERIMENTAL_OCI: 1
 
       - name: Push Chart to Harbor
-        run: helm push autoally-imadapter-${{ env.COMMIT_HASH }}.tgz oci://harbor.fullstackjam.com/fullstackjam
+        run: helm push autoally-imadapter-1-${{ env.COMMIT_HASH }}.tgz oci://harbor.fullstackjam.com/fullstackjam
 
       - name: Logout of Harbor
         run: helm registry logout harbor.fullstackjam.com
