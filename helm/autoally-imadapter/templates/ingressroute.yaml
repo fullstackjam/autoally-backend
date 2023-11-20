@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`autoally-imadapter.fullstackjam.com`)
+  - match: Host(`autoally-imadapter.fullstackjam.dev`)
     kind: Rule
     services:
     - name: autoally-imadapter

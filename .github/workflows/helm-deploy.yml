@@ -32,15 +32,18 @@ jobs:
           sed -i "s/tag: .*/tag: \"${{ env.NEW_VERSION }}\"/" helm/autoally-imadapter/values.yaml
 
       - name: Package Helm Chart
-        run: helm package helm/autoally-imadapter --version 1-${{ env.COMMIT_HASH }}
+        id: package_chart
+        run: |
+          CHART_PATH=$(helm package helm/autoally-imadapter | grep -o 'Successfully packaged chart and saved it to: .*' | awk '{print $NF}')
+          echo "CHART_PATH=$CHART_PATH" >> $GITHUB_ENV
 
       - name: Login to Harbor
-        run: helm registry login harbor.fullstackjam.com --username ${{ secrets.HARBOR_USERNAME }} --password ${{ secrets.HARBOR_PASSWORD }}
+        run: helm registry login harbor.fullstackjam.dev --username ${{ secrets.HARBOR_USERNAME }} --password ${{ secrets.HARBOR_PASSWORD }}
         env:
           HELM_EXPERIMENTAL_OCI: 1
 
       - name: Push Chart to Harbor
-        run: helm push autoally-imadapter-1-${{ env.COMMIT_HASH }}.tgz oci://harbor.fullstackjam.com/fullstackjam
+        run: helm push ${{ env.CHART_PATH }} oci://harbor.fullstackjam.dev/fullstackjam
 
       - name: Logout of Harbor
-        run: helm registry logout harbor.fullstackjam.com
+        run: helm registry logout harbor.fullstackjam.dev

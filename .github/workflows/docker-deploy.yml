@@ -27,7 +27,7 @@ jobs:
       - name: Login to Docker Registry
         uses: docker/login-action@v1
         with:
-          registry: harbor.fullstackjam.com
+          registry: harbor.fullstackjam.dev
           username: ${{ secrets.HARBOR_USERNAME }}
           password: ${{ secrets.HARBOR_PASSWORD }}
 
@@ -37,7 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: harbor.fullstackjam.com/fullstackjam/autoally-imadapter:${{ env.NEW_VERSION }}
+          tags: harbor.fullstackjam.dev/fullstackjam/autoally-imadapter:${{ env.NEW_VERSION }}
 
       - name: Logout of Docker Registry
-        run: docker logout harbor.fullstackjam.com
+        run: docker logout harbor.fullstackjam.dev

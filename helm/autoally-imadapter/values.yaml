@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: harbor.fullstackjam.com/fullstackjam/autoally-imadapter
+  repository: harbor.fullstackjam.dev/fullstackjam/autoally-imadapter
   pullPolicy: Always
   tag: latest
 
