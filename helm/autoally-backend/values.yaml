@@ -9,9 +9,6 @@ service:
   type: ClusterIP
   port: 8000
 
-ingress:
-  enabled: false
-
 resources: {}
 
 slackSigningSecret: f0b96064610645f398236a186e28a0f7
