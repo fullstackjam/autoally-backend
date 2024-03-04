@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: autoally-imadapter
+  name: autoally-backend
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: autoally-imadapter
+      app: autoally-backend
   template:
     metadata:
       labels:
-        app: autoally-imadapter
+        app: autoally-backend
     spec:
       containers:
-        - name: autoally-imadapter
+        - name: autoally-backend
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
@@ -34,5 +34,3 @@ spec:
               port: http
             initialDelaySeconds: 5
             periodSeconds: 10
-      imagePullSecrets:
-        - name: my-harbor-secret

@@ -1,6 +1,6 @@
-# AutoAlly-IMAdapter
+# AutoAlly-Backend
 
-IMAdapter is a FastAPI-based service designed to preprocess and forward instant messages.
+Backend is a FastAPI-based service designed to preprocess and forward instant messages.
 
 ## Features
 - Receive and preprocess instant messages (IM).
@@ -16,8 +16,8 @@ IMAdapter is a FastAPI-based service designed to preprocess and forward instant 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/fullstackjam/AutoAlly-IMAdapter.git
-cd AutoAlly-IMAdapter
+git clone https://github.com/fullstackjam/AutoAlly-Backend.git
+cd AutoAlly-Backend
 ```
 2. Set up a virtual environment and activate it:
 
@@ -42,17 +42,17 @@ Visit http://127.0.0.1:8000/ in your browser to see the application in action.
 1. Build the Docker image:
 
 ```bash
-docker build -t your_dockerhub_username/imadapter:latest .
+docker build -t your_dockerhub_username/backend:latest .
 ```
 2. Run the Docker container:
 
 ```bash
-docker run -p 8000:8000 your_dockerhub_username/imadapter:latest
+docker run -p 8000:8000 your_dockerhub_username/backend:latest
 ```
 Visit http://127.0.0.1:8000/ in your browser to access the service running inside the Docker container.
 
 ## Contribution
-Feel free to fork this repository, submit issues, or open pull requests to enhance the functionalities of IMAdapter.
+Feel free to fork this repository, submit issues, or open pull requests to enhance the functionalities of Backend.
 
 ## License
 [MIT]

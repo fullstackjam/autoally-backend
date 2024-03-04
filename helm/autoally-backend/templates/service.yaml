@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: autoally-imadapter
+  name: autoally-backend
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -10,4 +10,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: autoally-imadapter
+    app: autoally-backend
