@@ -1,2 +1,3 @@
 ingressRoute:
-  domains: []
+  domains:
+    - autoally-backend.fullstackjam.dev
