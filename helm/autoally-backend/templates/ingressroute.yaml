@@ -1,4 +1,4 @@
----
+{{- if .Values.ingressRoute.domains }}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -7,10 +7,13 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: Host(`autoally-backend.fullstackjam.com`)
-    kind: Rule
-    services:
-    - name: autoally-backend
-      port: 8000
+  {{- range .Values.ingressRoute.domains }}
+    - match: Host(`{{ . }}`)
+      kind: Rule
+      services:
+        - name: autoally-backend
+          port: 8000
+  {{- end }}
   tls:
     certResolver: myresolver
+{{- end }}

@@ -1,0 +1,3 @@
+ingressRoute:
+  domains:
+    - autoally-backend.fullstackjam.com
