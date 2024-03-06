@@ -5,4 +5,4 @@ image:
 
 ingressRoute:
   domains:
-    - autoally-backend.fullstackjam.dev
+    - dev-autoally-backend.fullstackjam.com
