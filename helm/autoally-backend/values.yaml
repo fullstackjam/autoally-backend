@@ -1,10 +1,5 @@
 replicaCount: 1
 
-image:
-  repository: fullstackjam/autoally-backend
-  pullPolicy: Always
-  tag: latest
-
 service:
   type: ClusterIP
   port: 8000

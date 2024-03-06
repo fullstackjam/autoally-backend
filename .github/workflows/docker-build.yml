@@ -26,6 +26,15 @@ jobs:
     - name: Set Short SHA
       run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
 
+    - name: Determine Tag Name
+      id: tag-name
+      run: |
+        if [ "${{ github.ref }}" = "refs/heads/master" ]; then
+          echo ::set-output name=tag::autoally-backend-prod
+        else
+          echo ::set-output name=tag::autoally-backend-dev
+        fi
+
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v2
       with:
@@ -33,5 +42,5 @@ jobs:
         file: Dockerfile
         push: true
         tags: |
-          fullstackjam/autoally-backend:${{ env.SHORT_SHA }}
-          fullstackjam/autoally-backend:latest
+          fullstackjam/${{ steps.tag-name.outputs.tag }}:${{ env.SHORT_SHA }}
+          fullstackjam/${{ steps.tag-name.outputs.tag }}:latest
