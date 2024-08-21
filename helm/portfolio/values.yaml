@@ -1,0 +1,15 @@
+replicaCount: 3
+
+image:
+  repository: registry.fullstackjam.dev/app/autoally-backend
+  pullPolicy: Always
+  tag: latest
+
+ingress:
+  enabled: true
+  hosts:
+    - host: autoally-backend.fullstackjam.dev
+  tlsSecret: autoally-backend-tls-certificate
+
+imagePullSecrets:
+  name: my-harbor-secret

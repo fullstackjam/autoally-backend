@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: autoally-backend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: autoally-backend
+  template:
+    metadata:
+      labels:
+        app: autoally-backend
+    spec:
+      containers:
+      - name: autoally-backend
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets.name }}

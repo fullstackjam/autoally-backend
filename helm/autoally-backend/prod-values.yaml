@@ -1,8 +1,0 @@
-image:
-  repository: fullstackjam/autoally-backend-prod
-  pullPolicy: Always
-  tag: latest
-
-ingressRoute:
-  domains:
-    - autoally-backend.fullstackjam.com
