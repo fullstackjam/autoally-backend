@@ -18,9 +18,16 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 80
+        env:
+        - name: SLACK_SIGNING_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: my-autoally-backend-secret
+              key: SLACK_SIGNING_SECRET
+        - name: SLACK_BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: my-autoally-backend-secret
+              key: SLACK_BOT_TOKEN
       imagePullSecrets:
         - name: {{ .Values.imagePullSecrets.name }}
-      volumes:
-      - name: secret-volume
-        secret:
-          secretName: {{ .Values.envSecret.name }}

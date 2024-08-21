@@ -13,6 +13,3 @@ ingress:
 
 imagePullSecrets:
   name: my-harbor-secret
-
-envSecret:
-  name: my-autoally-backend-secret
