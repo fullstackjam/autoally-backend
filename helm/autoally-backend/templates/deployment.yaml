@@ -29,5 +29,3 @@ spec:
             secretKeyRef:
               name: my-autoally-backend-secret
               key: SLACK_BOT_TOKEN
-      imagePullSecrets:
-        - name: {{ .Values.imagePullSecrets.name }}
