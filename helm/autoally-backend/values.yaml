@@ -1,12 +1,12 @@
 replicaCount: 3
 
 image:
-  repository: registry.fullstackjam.dev/autoally-backend
+  repository: registry.fullstackjam.com/autoally-backend
   pullPolicy: Always
   tag: latest
 
 ingress:
   enabled: true
   hosts:
-    - host: autoally-backend.fullstackjam.dev
+    - host: autoally-backend.fullstackjam.com
   tlsSecret: autoally-backend-tls-certificate
