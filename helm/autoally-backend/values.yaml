@@ -1,7 +1,7 @@
 replicaCount: 3
 
 image:
-  repository: registry.fullstackjam.com/autoally-backend
+  repository: fullstackjam/autoally-backend
   pullPolicy: Always
   tag: latest
 
