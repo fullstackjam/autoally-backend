@@ -1,31 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: autoally-backend
+  name: {{ .Values.app.name }}
+  labels:
+    {{- include "autoally-backend.commonLabels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: autoally-backend
+      {{- include "autoally-backend.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: autoally-backend
+        {{- include "autoally-backend.commonLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: autoally-backend
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - containerPort: 80
-        env:
-        - name: SLACK_SIGNING_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: my-autoally-backend-secret
-              key: SLACK_SIGNING_SECRET
-        - name: SLACK_BOT_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: my-autoally-backend-secret
-              key: SLACK_BOT_TOKEN
+        - name: {{ .Values.app.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+              name: http
+          env:
+            - name: SLACK_SIGNING_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.name }}-secret
+                  key: SLACK_SIGNING_SECRET
+            - name: SLACK_BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.app.name }}-secret
+                  key: SLACK_BOT_TOKEN
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 128Mi
